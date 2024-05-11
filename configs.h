@@ -20,7 +20,8 @@
 
 // Allow changing pre-allocated kv cache size as a compiler flag
 #ifndef GEMMA_MAX_SEQLEN
-#define GEMMA_MAX_SEQLEN 4096
+//#define GEMMA_MAX_SEQLEN 4096
+#define GEMMA_MAX_SEQLEN 65536
 #endif  // !GEMMA_MAX_SEQLEN
 
 // Allow changing k parameter of `SampleTopK` as a compiler flag

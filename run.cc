@@ -21,6 +21,8 @@
 #include <string>
 #include <thread>  // NOLINT
 #include <vector>
+#include <sstream>
+#include <fstream>
 
 // Placeholder for internal header, do not modify.
 // copybara:import_next_line:gemma_cpp
@@ -180,6 +182,18 @@ void ReplGemma(gcpp::Gemma& model, ModelTraining training,
       abs_pos = 0;
       continue;
     }
+
+    // If prompt_string points to a file, read contents and use as prompt_string instead!
+    if (access(prompt_string.c_str(), F_OK) == 0) {
+	std::cout << "Reading text from " << prompt_string << std::endl;
+	std::ifstream txt_f(prompt_string);
+	std::stringstream input_buff;
+	input_buff << txt_f.rdbuf();
+	prompt_string = input_buff.str();
+	std::cout << std::endl << prompt_string << std::endl << std::endl;
+    }
+
+
 
     if (training == ModelTraining::GEMMA_IT) {
       // For instruction-tuned models: add control tokens.
